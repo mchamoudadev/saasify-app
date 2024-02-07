@@ -13,5 +13,29 @@ export const AuthOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
         })
     ],
+    callbacks: {
+        jwt: async ({ token }) => {
+
+            const userInfo = await prisma.user.findUnique({
+                where: {
+                    email: token.email as string,
+                }
+            })
+
+            if (userInfo) {
+                userInfo.emailVerified = undefined!
+            }
+
+            token.user = userInfo
+            return token
+        },
+        session: async ({ session, token }) => {
+            session.user = token.user!
+            return session
+        }
+    },
+    session: {
+        strategy: "jwt"
+    },
     adapter: PrismaAdapter(prisma)
 }
