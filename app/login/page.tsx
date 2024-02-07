@@ -17,17 +17,10 @@ import { signIn, useSession } from 'next-auth/react'
 const LoginPage = () => {
 
 
-    const session = useSession()
-
-    console.log(session)
-
-    // if (!session.data) return <h1>loading...</h1>
-
 
     return (
         <div className='flex h-screen justify-center items-center'>
-            <h1>{session.data?.user?.name}</h1>
-            <img src={session.data?.user?.image} />
+
             <Card className='w-[350px]'>
                 <CardHeader>
                     <CardTitle>Login User</CardTitle>
