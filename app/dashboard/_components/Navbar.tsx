@@ -5,6 +5,7 @@ import UserAvatar from './UserAvatar'
 import { AuthOptions } from '@/app/api/auth/[...nextauth]/AuthOptions'
 import { getServerSession } from 'next-auth'
 import { User } from '.prisma/client'
+import MobileMenu from './MobileMenu'
 
 const Navbar = async () => {
 
@@ -28,8 +29,7 @@ const Navbar = async () => {
             <div className='hidden md:flex'>
                 <UserAvatar user={session?.user!} />
             </div>
-
-            {/* mobile menu */}
+            <MobileMenu />
         </div>
     )
 }
