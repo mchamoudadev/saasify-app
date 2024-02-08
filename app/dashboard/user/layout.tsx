@@ -15,7 +15,7 @@ const UserLayout = async ({ children }: { children: React.ReactNode }) => {
                 <MainSidebar />
             </div>
 
-            <main>
+            <main className='md:pl-56 h-full container mx-auto py-10 mt-10'>
                 {children}
             </main>
         </div>

@@ -18,7 +18,17 @@ const SidebarItem = ({ id, icon: Icon, label, href }: SidebarItemProps) => {
     const pathName = usePathname();
     const router = useRouter();
 
-    const isActive = pathName.includes(href);
+    const normalizedPathName = `/${pathName}`.replace('//', '/');
+    const normalizedHref = `/${href}`.replace('//', '/');
+
+    const pathSegments = pathName.split('/').filter(Boolean);
+    const hrefSegments = normalizedHref.split('/').filter(Boolean);
+
+    const isActiveBase = normalizedPathName.startsWith(normalizedHref);
+
+    const isExactOrParent = isActiveBase && pathSegments.length <= hrefSegments.length
+
+    const isActive = isActiveBase && isExactOrParent;
 
     return (
         <button
@@ -30,6 +40,7 @@ const SidebarItem = ({ id, icon: Icon, label, href }: SidebarItemProps) => {
                 {label}
             </div>
             <div className={cn('ml-auto opacity-0 border-2 border-slate-700 h-full transition-all', isActive && "opacity-1")}>
+
             </div>
         </button>
     )
