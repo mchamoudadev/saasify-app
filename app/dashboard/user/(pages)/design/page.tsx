@@ -1,8 +1,15 @@
+"use client"
 import React from 'react'
+import Draw from './_component/Draw'
+
 
 const DesignPage = () => {
     return (
-        <div>DesignPage</div>
+        <>
+            <main>
+                <Draw />
+            </main>
+        </>
     )
 }
 

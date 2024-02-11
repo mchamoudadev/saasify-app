@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import NextAuthProvider from './_components/providers/NextAuthProvider'
 
+import "@tldraw/tldraw/tldraw.css"
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
