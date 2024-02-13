@@ -4,6 +4,7 @@ import './globals.css'
 import NextAuthProvider from './_components/providers/NextAuthProvider'
 
 import "@tldraw/tldraw/tldraw.css"
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          {children}
+          <Toaster className='!z-[33333]' />
+        </body>
       </NextAuthProvider>
     </html>
   )

@@ -1,0 +1,1 @@
+export const API = process.env.NODE_ENV === 'production' ? 'yourapi.com/api' : 'http://localhost:3000/api'

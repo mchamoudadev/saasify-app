@@ -1,14 +1,18 @@
 import React from 'react'
 import { Tldraw } from '@tldraw/tldraw'
 import GenerateButton from './GenerateButton'
-// import '@tldraw/tldraw/styles-editor.css'
-// import '@tldraw/tldraw/styles-ui.css'
 
-const Draw = () => {
+interface DrawProps {
+    setDesignCode: (designCode: string) => void;
+    setOpen: (open: boolean) => void;
+}
+
+
+const Draw = ({ setDesignCode, setOpen }: DrawProps) => {
     return (
         <div className='p-6' style={{ height: 'calc(100vh - 80px)' }}>
             <Tldraw persistenceKey='saasify-app'>
-                <GenerateButton />
+                <GenerateButton setOpen={setOpen} setDesignCode={setDesignCode} />
             </Tldraw>
         </div>
     )
