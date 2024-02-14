@@ -1,5 +1,5 @@
 "use client";
-import { BookAIcon, ViewIcon } from 'lucide-react'
+import { BookAIcon, Group, ViewIcon } from 'lucide-react'
 import SidebarItem from './SidebarItem'
 
 const adminRoutes = [
@@ -22,6 +22,13 @@ const adminRoutes = [
         icon: ViewIcon,
         label: "Dashboard",
         href: "dashboard/admin",
+        isShare: false,
+    },
+    {
+        id: 4,
+        icon: Group,
+        label: "Users List",
+        href: "dashboard/admin/users",
         isShare: false,
     },
 ]

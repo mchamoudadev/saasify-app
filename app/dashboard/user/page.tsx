@@ -13,7 +13,7 @@ const UserPage = async () => {
     return (
         <div className='my-4 space-y-4 sm:p-6 lg:p-2'>
             <NewCodeButton />
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data} filter={'total_tokens'} />
         </div>
     )
 }

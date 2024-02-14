@@ -25,7 +25,7 @@ export default function RootLayout({
         <ReactQueryClientProvider>
           <body className={inter.className}>
             {children}
-            <Toaster className='!z-[33333]' />
+            <Toaster richColors className='!z-[33333]' />
           </body>
         </ReactQueryClientProvider>
       </NextAuthProvider>

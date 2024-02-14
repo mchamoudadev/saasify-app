@@ -26,12 +26,14 @@ import { Input } from "./input"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[],
+    filter: string
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    filter
 }: DataTableProps<TData, TValue>) {
 
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -61,9 +63,9 @@ export function DataTable<TData, TValue>({
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter token..."
-                    value={(table.getColumn("total_tokens")?.getFilterValue() as string) ?? ""}
+                    value={(table.getColumn(filter)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("total_tokens")?.setFilterValue(event.target.value)
+                        table.getColumn(filter)?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
