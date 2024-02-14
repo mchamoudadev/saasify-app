@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation'
 
 const DeleteAlertDialog = ({ id }: { id: string }) => {
 
-
     const [loading, setLoading] = useState(false);
 
     const router = useRouter();

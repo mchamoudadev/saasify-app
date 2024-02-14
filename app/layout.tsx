@@ -5,6 +5,7 @@ import NextAuthProvider from './_components/providers/NextAuthProvider'
 
 import "@tldraw/tldraw/tldraw.css"
 import { Toaster } from '@/components/ui/sonner'
+import ReactQueryClientProvider from './_components/providers/ReactQueryClientProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={inter.className}>
-          {children}
-          <Toaster className='!z-[33333]' />
-        </body>
+        <ReactQueryClientProvider>
+          <body className={inter.className}>
+            {children}
+            <Toaster className='!z-[33333]' />
+          </body>
+        </ReactQueryClientProvider>
       </NextAuthProvider>
     </html>
   )
