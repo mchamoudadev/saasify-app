@@ -137,6 +137,7 @@ const Pricing = () => {
                                 </div>
                                 <PaymentModal
                                     className={`${cn(tier.mostPopular ? "bg-rose-600 text-white shadow-sm hover:bg-rose-500" : "bg-transparent text-rose-600 ring-1 ring-rose-600 ring-inset hover:ring-rose-300 hover:bg-transparent")} mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600`}
+                                    tier={tier}
                                 />
                             </div>
                         ))

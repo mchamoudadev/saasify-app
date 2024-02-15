@@ -9,6 +9,8 @@ import {
 import { cn } from '@/lib/utils';
 
 import { FaStripe } from "react-icons/fa6";
+import { API } from '@/util/api';
+import { toast } from 'sonner';
 
 const deliveryMethods = [
     { id: 1, title: 'Local Payment', turnaround: 'Use local payments like eDahab, ZAAD, or Sahal.', price: '0', paymentType: 'local' },
@@ -23,12 +25,26 @@ const paymentMethods = [
 ];
 
 
-const PaymentModal = ({ className }: { className: string }) => {
+interface PaymentModalProps {
+    className: string;
+    tier: {
+        id: string;
+        name: string;
+        price: number;
+        credits: number;
+    }
+}
+
+
+
+const PaymentModal = ({ className, tier }: PaymentModalProps) => {
 
     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0]);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(paymentMethods[0]);
 
     const [currentPaymentType, setCurrentPaymentType] = useState('local'); // Default to 'local'
+
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -39,7 +55,35 @@ const PaymentModal = ({ className }: { className: string }) => {
             setCurrentPaymentType(currentMethod.paymentType)
         }
 
-    }, [selectedDeliveryMethod])
+    }, [selectedDeliveryMethod]);
+
+
+    const handleStripeSession = async () => {
+
+        setLoading(true);
+        const { credits, name, id, price } = tier
+
+        try {
+
+            const response = await fetch(`${API}/user/stripeSession`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id, credits, name, price })
+            })
+
+            const data = await response.json();
+
+            window.location.href = data.url
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+            toast.error("Error at stripe Session");
+            setLoading(false)
+        }
+
+    }
 
 
     return (
@@ -78,12 +122,13 @@ const PaymentModal = ({ className }: { className: string }) => {
                                     <button
                                         type='button'
                                         className='w-full'
+                                        onClick={handleStripeSession}
                                     >
 
                                         <div
                                             className="cursor-pointer rounded-lg border p-4 shadow-sm hover:border-rose-500 w-full flex justify-center items-center space-x-2"
                                         >
-                                            <h4 className="text-md font-medium text-gray-900">Pay With </h4>
+                                            <h4 className="text-md font-medium text-gray-900">{!loading ? "Pay With" : "Waiting Stripe Session..."} </h4>
                                             <FaStripe className='w-10 h-10' />
                                         </div>
 
@@ -109,6 +154,44 @@ const PaymentModal = ({ className }: { className: string }) => {
                                                 ))
                                             }
                                         </div>
+                                    </div>
+
+                                    <div className="my-4">
+                                        <div className="grid grid-cols-4 space-x-1">
+                                            <input
+                                                type="text"
+                                                className={`col-span-1  rounded-md shadow w-full  focus:outline-none ring-1 ring-rose-600  focus:border-transparent py-4 z-10 disabled:cursor-not-allowed font-bold text-lg text-center`}
+                                                disabled
+                                                value={selectedPaymentMethod.code}
+                                            />
+
+                                            <input
+                                                type="text"
+                                                name="phoneNumber"
+                                                id="phoneNumber"
+                                                className={`p-2 col-span-1 sm:col-span-3  border border-gray-400 rounded-md shadow w-full  focus:outline-none focus:ring-1 focus:ring-rose-600 focus:border-transparent py-4 z-10`}
+                                                placeholder={selectedPaymentMethod.title}
+                                                onChange={(event) => {
+                                                    setSelectedPaymentMethod({
+                                                        ...selectedPaymentMethod,
+                                                        phone: event.target.value
+                                                    })
+                                                }}
+                                                value={selectedPaymentMethod.phone}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-5 pt-5 sm:mt-6 w-full">
+                                        <button
+                                            disabled={loading}
+                                            type="submit"
+                                            className={cn(loading ? "bg-rose-400 hover:bg-rose-400" : "bg-rose-600 hover:bg-rose-700", `w-full inline-flex justify-center rounded-md border border-transparent  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2
+                                        disabled:cursor-wait
+                                        `)}
+                                        >
+                                            {!loading ? "Pay Now" : "Processing..."}
+                                        </button>
                                     </div>
                                 </>
                         }

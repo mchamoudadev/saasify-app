@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.511.0",
@@ -37,6 +38,7 @@
     "react-icons": "^5.0.1",
     "sharp": "^0.32.6",
     "sonner": "^1.4.0",
+    "stripe": "^14.16.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1"
