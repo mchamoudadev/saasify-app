@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import prisma from '../../../../../prisma/client'
+import prisma from '../../../../../prisma/client';
 
+type User = {
+    role: string
+}
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+
 
     let designInfo = await prisma.generatedCode.findUnique({ where: { id: params.id } })
 
