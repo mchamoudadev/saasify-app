@@ -3,6 +3,7 @@ import { getSession, useSession } from "next-auth/react";
 import { AuthOptions } from "./api/auth/[...nextauth]/AuthOptions";
 import { getServerSession } from "next-auth";
 import UserInfo from "./_components/providers/UserInfo";
+import Hero from "./_components/providers/Hero";
 
 export default async function Home() {
 
@@ -10,9 +11,7 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>Hi {session?.user?.name}</h1>
-      <Button variant={'outline'} size={'sm'}>Click Me</Button>
-      <UserInfo />
+      <Hero />
     </main>
   )
 }

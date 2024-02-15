@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import { AuthOptions } from '@/app/api/auth/[...nextauth]/AuthOptions'
 import { User } from '@prisma/client'
 import UserAvatar from './UserAvatar'
+import Link from 'next/link'
 
 const MainSidebar = async () => {
 
@@ -14,7 +15,7 @@ const MainSidebar = async () => {
     <div className='relative h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm'>
 
       <div className='p-6'>
-        <h1 className='text-slate-500 text-2xl font-bold'>Saasify</h1>
+        <Link href="/" className='text-slate-500 text-2xl font-bold'>Saasify</Link>
       </div>
 
       <div className='flex flex-col w-full'>

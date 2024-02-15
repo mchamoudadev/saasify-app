@@ -16,8 +16,6 @@ import { signIn, useSession } from 'next-auth/react'
 
 const LoginPage = () => {
 
-
-
     return (
         <div className='flex h-screen justify-center items-center'>
 
@@ -31,7 +29,7 @@ const LoginPage = () => {
                         <div className='flex flex-col space-y-1.5'>
                             <Button
                                 onClick={() => signIn('google', {
-                                    callbackUrl: '/'
+                                    callbackUrl: '/dashboard/user'
                                 })}
                                 variant={'outline'}
                                 className='flex space-x-2'
